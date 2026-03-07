@@ -1,11 +1,13 @@
 package alfa.system.binreader.di
 
+import alfa.system.binreader.data.local.db.AppDataBase
 import alfa.system.binreader.data.remote.api.BinApiService
 import alfa.system.binreader.data.repository.BinRepositoryImpl
 import alfa.system.binreader.data.repository.MockBinRepository
 import alfa.system.binreader.domain.repository.BinRepository
 import alfa.system.binreader.domain.usecase.BinSearchUseCase
 import alfa.system.binreader.uiscreens.search.BinSearchViewModel
+import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -58,8 +60,20 @@ val appModule = module {
 // создание реализации интерфейса BinApiService через retrofit
     single { get<Retrofit>().create(BinApiService::class.java) }
 
+    single {
+        Room.databaseBuilder(
+            get(),
+            AppDataBase::class.java,
+            "bin_search_history"
+                    ).build()
+    }
+
+    single {
+        get<AppDataBase>().binSearchHistoryDao()
+    }
+
 //  при запросе BinRepository выдает BinRepositoryImpl и передает в него BinApiService
-    single<BinRepository> { BinRepositoryImpl(api = get()) }
+    single<BinRepository> { BinRepositoryImpl(api = get(), historyDao = get()) }
 
 //    создает новый объект UseCase. В конструктор передается BinRepository
     factory { BinSearchUseCase(binRepository = get()) }
