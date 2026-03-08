@@ -7,9 +7,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class HistoryViewModel(
-    dao: BinSearchHistoryDao
+   private val dao: BinSearchHistoryDao
 ) : ViewModel() {
 
     val history = dao.getAll()
@@ -20,4 +21,10 @@ class HistoryViewModel(
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = emptyList()
             )
+
+    fun clearHistory(){
+        viewModelScope.launch {
+            dao.clearAll()
+        }
+    }
 }
