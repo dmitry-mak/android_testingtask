@@ -6,6 +6,7 @@ import alfa.system.binreader.data.repository.BinRepositoryImpl
 import alfa.system.binreader.data.repository.MockBinRepository
 import alfa.system.binreader.domain.repository.BinRepository
 import alfa.system.binreader.domain.usecase.BinSearchUseCase
+import alfa.system.binreader.uiscreens.history.HistoryViewModel
 import alfa.system.binreader.uiscreens.search.BinSearchViewModel
 import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -80,6 +81,7 @@ val appModule = module {
 
 //    Для Koin: регистрирует BinSearchViewModel, чтобы "жила" как ViewModel. Можно получить в Compose через koinViewModel
     viewModel { BinSearchViewModel(binSearchUseCase = get()) }
+    viewModel { HistoryViewModel(dao = get()) }
 
 //    single<BinRepository> { MockBinRepository(json = get()) }
 //    factory { BinSearchUseCase(binRepository = get()) }
