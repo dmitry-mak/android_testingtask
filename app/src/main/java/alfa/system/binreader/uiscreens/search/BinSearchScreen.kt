@@ -22,7 +22,6 @@ import org.koin.androidx.compose.koinViewModel
 fun BinSearchScreen(
     onOpenHistory: () -> Unit,
 ) {
-//    val (bin, setBin) = remember { mutableStateOf("") }
     val viewModel: BinSearchViewModel= koinViewModel()
     val state by viewModel.uiState.collectAsState()
 
@@ -36,7 +35,6 @@ fun BinSearchScreen(
 
             OutlinedTextField(
                 value = state.binNumber,
-//                onValueChange = setBin,
                 onValueChange = viewModel::onBinNumberChange,
                 label = { Text("BIN") },
                 singleLine = true,

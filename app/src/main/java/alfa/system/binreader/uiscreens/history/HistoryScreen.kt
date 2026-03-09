@@ -1,5 +1,6 @@
 package alfa.system.binreader.uiscreens.history
 
+import alfa.system.binreader.utils.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -73,7 +74,7 @@ fun HistoryScreen(
                         Text(text = "Scheme: ${item.scheme ?: "-"} Type: ${item.type ?: "-"}")
                         Text(text = "Country: ${item.country?.name ?: "-"}")
                         Text(text = "Bank: ${item.bank?.name ?: "-"}")
-                        Text(text = "Searched at: ${item.timestamp}")
+                        Text(text = "Searched at: ${DateUtils.formatDateStamp(item.timestamp)}")
                     }
                 }
             }

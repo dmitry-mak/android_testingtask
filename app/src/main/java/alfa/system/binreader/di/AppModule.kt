@@ -3,7 +3,6 @@ package alfa.system.binreader.di
 import alfa.system.binreader.data.local.db.AppDataBase
 import alfa.system.binreader.data.remote.api.BinApiService
 import alfa.system.binreader.data.repository.BinRepositoryImpl
-import alfa.system.binreader.data.repository.MockBinRepository
 import alfa.system.binreader.domain.repository.BinRepository
 import alfa.system.binreader.domain.usecase.BinSearchUseCase
 import alfa.system.binreader.uiscreens.history.HistoryViewModel
@@ -20,14 +19,6 @@ import retrofit2.Retrofit
 
 
 val appModule = module {
-    // single { OkHttpClient.Builder()...build() }
-    // single { Retrofit.Builder()...build() }
-    // single<BinlistApi> { get<Retrofit>().create(BinlistApi::class.java) }
-    // single { Room.databaseBuilder(...).build() }
-    // single { get<AppDatabase>().dao() }
-    // single<BinRepository> { BinRepositoryImpl(get(), get()) }
-    // factory { LookupBinUseCase(get()) }
-    // viewModel { BinSearchViewModel(get()) }
     single {
         Json {
             ignoreUnknownKeys = true
@@ -83,7 +74,4 @@ val appModule = module {
     viewModel { BinSearchViewModel(binSearchUseCase = get()) }
     viewModel { HistoryViewModel(dao = get()) }
 
-//    single<BinRepository> { MockBinRepository(json = get()) }
-//    factory { BinSearchUseCase(binRepository = get()) }
-//    viewModel { BinSearchViewModel(binSearchUseCase = get()) }
 }
